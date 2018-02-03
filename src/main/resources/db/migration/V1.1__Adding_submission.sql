@@ -1,0 +1,1 @@
+alter table flight_gar add submission_uuid uuid;

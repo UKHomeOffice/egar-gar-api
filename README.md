@@ -3,7 +3,7 @@
 ## Configuring the service
 To run the service create an application.properties file in the same folder as the spring jar.
 Additionally as this is a SpringBoot application the values can be stored as systems environment properties.
-See [Springboot documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html) for full details.
+See [Springboot documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html) for full details..
 As a short hand through out this document these are refered to as *parameters*.
 
 ## Setting the server's port

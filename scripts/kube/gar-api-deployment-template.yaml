@@ -34,7 +34,7 @@ spec:
               secretKeyRef:
                 name: egar-secret
                 key: dbpass
-        image: pipe.egarteam.co.uk/egar-gar-api:$GAR_API_VER
+        image: quay.io/ukhomeofficedigital/egar-gar-api:$GAR_API_VER
         name: gar-api
         livenessProbe:
           initialDelaySeconds: 15

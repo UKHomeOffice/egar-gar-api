@@ -34,13 +34,13 @@ spec:
               secretKeyRef:
                 name: egar-secret
                 key: dbpass
-        image: quay.io/ukhomeofficedigital/egar-gar-api:$GAR_API_VER
+        image: pipe.egarteam.co.uk/egar-gar-api:$GAR_API_VER
         name: gar-api
         livenessProbe:
-          initialDelaySeconds: 15
-          periodSeconds: 20
+          initialDelaySeconds: 90
+          periodSeconds: 30
           httpGet:
-            path: /health
+            path: /healthz
             port: 8084
         resources: {}
       - args:

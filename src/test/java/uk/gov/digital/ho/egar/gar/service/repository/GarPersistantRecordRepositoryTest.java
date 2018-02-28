@@ -100,7 +100,7 @@ public class GarPersistantRecordRepositoryTest {
 		}
 		
 	    // WHEN
-		List<GarPersistantRecord> gars = repo.findAllByUserUuid(userUuid1);
+		List<GarPersistantRecord> gars = repo.findAllByUserUuidOrderByCreatedDesc(userUuid1);
 
 
 		// THEN

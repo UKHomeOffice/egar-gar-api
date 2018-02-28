@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import uk.gov.digital.ho.egar.gar.api.exceptions.GarNotFoundException;
 import uk.gov.digital.ho.egar.gar.model.Gar;
+import uk.gov.digital.ho.egar.gar.model.rest.GarRequestPojo;
 
 public interface GarService {
 
@@ -15,5 +16,7 @@ public interface GarService {
 	Gar getSingleGar(UUID garUuid, UUID userUuid) throws GarNotFoundException;
 
 	Gar updateAGar(UUID garUuid, UUID userUuid, Gar gar) throws GarNotFoundException;
+
+	Gar[] getBulkGars(UUID uuidOfUser, List<UUID> garList);
 
 }

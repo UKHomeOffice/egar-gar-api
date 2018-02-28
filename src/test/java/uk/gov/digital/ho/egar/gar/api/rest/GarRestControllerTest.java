@@ -112,7 +112,7 @@ public class GarRestControllerTest {
 	{
 		// WITH
 		final UUID userUuid = UUID.randomUUID() ;
-		final long garCount = repo.findAllByUserUuid(userUuid).size();
+		final long garCount = repo.findAllByUserUuidOrderByCreatedDesc(userUuid).size();
 		this.restController.createAGar(userUuid);
 		this.restController.createAGar(userUuid);
 		this.restController.createAGar(userUuid);
@@ -129,7 +129,7 @@ public class GarRestControllerTest {
     {
         // WITH
         final UUID userUuid = UUID.randomUUID() ;
-        final long garCount = repo.findAllByUserUuid(userUuid).size();
+        final long garCount = repo.findAllByUserUuidOrderByCreatedDesc(userUuid).size();
         ResponseEntity<Void> createResponse = this.restController.createAGar(userUuid);
 
         UUID garUuid = getGarUuid(createResponse);
@@ -230,7 +230,7 @@ public class GarRestControllerTest {
     {
         // WITH
         final UUID userUuid = UUID.randomUUID() ;
-        final long garCount = repo.findAllByUserUuid(userUuid).size();
+        final long garCount = repo.findAllByUserUuidOrderByCreatedDesc(userUuid).size();
         ResponseEntity<Void> createResponse = this.restController.createAGar(userUuid);
 
         UUID garUuid = getGarUuid(createResponse);

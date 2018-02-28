@@ -86,6 +86,12 @@ public class GarPersistantRecord implements Gar {
     @Convert(converter = LocalDateTimeConverter.class)
     @Valid
     private LocalDateTime lastModified;
+    
+    @JsonIgnore
+    @Column
+    @Convert(converter = LocalDateTimeConverter.class)
+    @Valid
+    private LocalDateTime created;
 
     private UUID submissionUuid;
 

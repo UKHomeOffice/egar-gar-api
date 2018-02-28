@@ -30,9 +30,11 @@ import uk.gov.digital.ho.egar.gar.api.PathConstants;
 import uk.gov.digital.ho.egar.gar.api.exceptions.GarDataserviceException;
 import uk.gov.digital.ho.egar.gar.model.Gar;
 import uk.gov.digital.ho.egar.gar.model.GarUuidList;
+import uk.gov.digital.ho.egar.gar.model.rest.GarRequestPojo;
 import uk.gov.digital.ho.egar.gar.model.rest.GarUuidListPojo;
 import uk.gov.digital.ho.egar.gar.service.GarService;
 import uk.gov.digital.ho.egar.gar.utils.UriLocationUtilities;
+import uk.gov.digital.ho.egar.shared.auth.api.token.AuthValues;
 
 import static uk.gov.digital.ho.egar.gar.api.GarApiResponse.*;
 
@@ -165,6 +167,36 @@ public class GarRestController implements GarRestApi {
         return new ResponseEntity<Void>(responseHeaders, HttpStatus.SEE_OTHER);
 
     }
+    //---------------------------------------------------------------------------------------------------------
+    
+    /**
+     * A get endpoint that bulk retrieves a list of GARs
+     * -------------------------------------------------------------------------------------------
+     * @throws GarDataserviceException 
+     */
+    
+    
+    @Override
+    @ApiOperation(value = "Bulk retrieve a list of GAR summaries.",
+            notes = "Retrieve a list of existing General Aviation Report in summary for a user")
+    @ApiResponses(value = {
+    		@ApiResponse(
+                    code = 200,
+                    message = SWAGGER_MESSAGE_SUCCESSFUL_RETRIEVED_KEY,
+                    response = Gar[].class),
+            @ApiResponse(
+                    code = 401,
+                    message = SWAGGER_MESSAGE_UNAUTHORISED)})
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping(path = PathConstants.PATH_BULK,
+    			consumes = MediaType.APPLICATION_JSON_VALUE,
+           		produces = MediaType.APPLICATION_JSON_VALUE)
+    public Gar[] bulkRetrieveGARs(@RequestHeader(AuthValues.USERID_HEADER) UUID uuidOfUser, 
+    									   @RequestBody List<UUID> garList) {
+    	
+    	return garService.getBulkGars(uuidOfUser,garList);
+    }
+    
 
     //	@ApiOperation(value = "Delete a gar linked to a user",
 //			notes = "Delete a gar linked to a user")

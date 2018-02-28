@@ -1,5 +1,6 @@
 package uk.gov.digital.ho.egar.gar.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import uk.gov.digital.ho.egar.gar.api.exceptions.GarNotFoundException;
 import uk.gov.digital.ho.egar.gar.model.Gar;
 import uk.gov.digital.ho.egar.gar.model.PeopleOnGar;
+import uk.gov.digital.ho.egar.gar.model.rest.GarRequestPojo;
 import uk.gov.digital.ho.egar.gar.service.GarService;
 import uk.gov.digital.ho.egar.gar.service.repository.GarPersistantRecordRepository;
 import uk.gov.digital.ho.egar.gar.service.repository.model.*;
@@ -34,7 +36,7 @@ public class GarServiceImpl implements GarService {
 	@Override
 	public List<? extends Gar> getAllUsersGars(UUID userUuid)
 	{
-		return repository.findAllByUserUuid(userUuid) ;
+		return repository.findAllByUserUuidOrderByCreatedDesc(userUuid) ;
 	}
 
 	@Override
@@ -43,8 +45,8 @@ public class GarServiceImpl implements GarService {
 		GarPersistantRecord gar = GarPersistantRecord.builder()
 										.garUuid(UUID.randomUUID())
 										.userUuid(userUuid)
+										.created(LocalDateTime.now())
 										.build();
-		
 		
 		return save(gar);
 	}
@@ -55,7 +57,7 @@ public class GarServiceImpl implements GarService {
 
 	@Override
 	public Gar getSingleGar(UUID garUuid, UUID userUuid) throws GarNotFoundException {
-		GarPersistantRecord dbResponse = repository.findByGarUuidAndUserUuid(garUuid, userUuid);
+		GarPersistantRecord dbResponse = repository.findByGarUuidAndUserUuidOrderByCreatedDesc(garUuid, userUuid);
 
 		if (dbResponse==null){
 		    //LOG
@@ -74,6 +76,16 @@ public class GarServiceImpl implements GarService {
         existingGar = update(existingGar, gar);
 
 		return save(existingGar);
+	}
+	
+	@Override
+	public Gar[] getBulkGars(UUID uuidOfUser, List<UUID> garList) {
+		
+			List<GarPersistantRecord> garsList = repository.findAllByUserUuidAndGarUuidIn(uuidOfUser,garList);
+			Gar[] garsArray = new Gar[garsList.size()];
+			garsArray = garsList.toArray(garsArray);
+			
+		return garsArray;
 	}
 
 	private GarPersistantRecord initaliseAndClear(final GarPersistantRecord existingGar){
@@ -174,4 +186,5 @@ public class GarServiceImpl implements GarService {
 
         return records.stream().filter(record -> record.getValueUuid() != null).collect(Collectors.toList());
     }
+
 }

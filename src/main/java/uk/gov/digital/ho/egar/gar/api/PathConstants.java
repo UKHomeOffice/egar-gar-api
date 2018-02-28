@@ -10,5 +10,6 @@ public interface PathConstants {
 			+ ServicePathConstants.ROOT_PATH_SEPERATOR + ROOT_SERVICE_NAME;
 	String PATH_GARS = "/";
 	String PATH_GAR = "{gar_uuid}/";
+	String PATH_BULK = "summaries";
 
 }

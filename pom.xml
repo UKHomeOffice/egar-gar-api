@@ -5,7 +5,6 @@
 
 	<artifactId>egar-gar-api</artifactId>
 	<packaging>jar</packaging>
-	<version>4.1.3</version>
 
 
 	<parent>
@@ -226,4 +225,5 @@
 
 	<name>Gar API application</name>
 	<description>An API application for interaction with a Gar</description>
+	<version>5.0.1</version>
 </project>

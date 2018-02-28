@@ -11,8 +11,9 @@ import uk.gov.digital.ho.egar.gar.service.repository.model.GarPersistantRecord;
 
 @Transactional
 public interface GarPersistantRecordRepository extends JpaRepository<GarPersistantRecord, UUID>{
-	List<GarPersistantRecord> findAllByUserUuid(UUID userUuid);
+	List<GarPersistantRecord> findAllByUserUuidOrderByCreatedDesc(UUID userUuid);
 
-	GarPersistantRecord findByGarUuidAndUserUuid(UUID garUUid, UUID userUuid);
+	GarPersistantRecord findByGarUuidAndUserUuidOrderByCreatedDesc(UUID garUUid, UUID userUuid);
 
+	List<GarPersistantRecord> findAllByUserUuidAndGarUuidIn(UUID userUuid, List<UUID> garUuidList);
 }
